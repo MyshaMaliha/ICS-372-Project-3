@@ -12,6 +12,7 @@ public class GUIApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GUIApplication.class.getResource("GUI-view.fxml"));
+
         Scene scene = new Scene(fxmlLoader.load(), 500, 650);
         stage.setTitle("Welcome to the Dealership app!");
         stage.setScene(scene);

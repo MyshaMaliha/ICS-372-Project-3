@@ -9,10 +9,14 @@
       stylesheets="@styles.css">
 
     <Label text="Car Dealership System" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
-    <Button text="Vehicle Operations" onAction="#handleVehiclePage"/>
-    <Button text="Dealer Operations" onAction="#handleDealerPage"/>
-    <Button text="File Operations" onAction="#handleFilePage"/>
 
+
+
+
+
+    <Button text="4. Add a Vehicle" onAction="#addVehicle"/>
+
+    <Button text="6. Export JSON file" onAction="#exportJSON"/>
 
 
 

@@ -10,10 +10,56 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 public class GUIController {
     @FXML
     private Set<Dealer> dealerSet = new HashSet<>();
     private final String FILE_NAME = "Dealers_Vehicles.json";
+    @FXML
+    private void handleVehiclePage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("vehiclepage.fxml"));
+        Parent vehicleRoot = loader.load();
+
+        // Get the current stage from the button click
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+        Scene scene = new Scene(vehicleRoot, 500, 650);
+        stage.setScene(scene);
+        stage.setTitle("Vehicle Operation");
+        stage.show();
+    }
+    @FXML
+    private void handleDealerPage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("dealerpage.fxml"));
+        Parent vehicleRoot = loader.load();
+
+        // Get the current stage from the button click
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+        Scene scene = new Scene(vehicleRoot, 500, 650);
+        stage.setScene(scene);
+        stage.setTitle("Dealer Operation");
+        stage.show();
+    }
+    @FXML
+    private void handleFilePage(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("filepage.fxml"));
+        Parent vehicleRoot = loader.load();
+
+        // Get the current stage from the button click
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+
+        Scene scene = new Scene(vehicleRoot, 500, 650);
+        stage.setScene(scene);
+        stage.setTitle("File Operation");
+        stage.show();
+    }
 
 
     /**
