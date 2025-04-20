@@ -16,6 +16,7 @@
     <Button text="3. Disable Dealer" onAction="#disableDealer"/>
     <Button text="5. Update Dealer Name" onAction="#updateDealerName"/>
     <Button text="7. Transfer Inventory" onAction="#transferInventory"/>
+    <Button text="Return to Home Page" onAction="#handleBackToHome"/>
 
 
 

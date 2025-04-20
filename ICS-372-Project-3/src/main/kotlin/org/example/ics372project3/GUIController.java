@@ -61,6 +61,17 @@ public class GUIController {
         stage.show();
     }
 
+    @FXML
+    private void handleBackToHome(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("GUI-view.fxml"));
+        Parent homePageRoot = loader.load();
+
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(homePageRoot, 500, 650));
+        stage.setTitle("Welcome to the Dealership app!");
+        stage.show();
+    }
+
 
     /**
      * Initializes the GUI by loading dealership data from file Dealer_Vehicle.json if it exists.

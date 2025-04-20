@@ -17,6 +17,7 @@
     <Button text="4. Add a Vehicle" onAction="#addVehicle"/>
 
     <Button text="6. Export JSON file" onAction="#exportJSON"/>
+    <Button text="Return to Home Page" onAction="#handleBackToHome"/>
 
 
 
