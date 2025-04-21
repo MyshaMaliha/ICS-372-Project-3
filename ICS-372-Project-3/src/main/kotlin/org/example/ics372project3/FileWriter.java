@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class File_Writer {
+public class FileWriter {
 
     /**
      * Exports the dealer inventory data into "Dealers_Vehicle.json" File

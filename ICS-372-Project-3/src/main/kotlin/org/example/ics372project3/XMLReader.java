@@ -15,7 +15,7 @@ import java.util.Set;
  * This class reads and parses dealer inventory data from a XML file
  * It extends abstract File_Reader and implements the parsing method for XML File
  */
-public class XMLReader extends File_Reader {
+public class XMLReader extends FileReader {
     private String filePath;
 
 

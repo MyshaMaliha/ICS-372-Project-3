@@ -5,7 +5,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Set;
 
@@ -13,7 +12,7 @@ import java.util.Set;
  * This class reads and parses dealer inventory data from a JSON file
  * It extends abstract File_Reader and implements the parsing method for JSON File
  */
-public class JSONReader extends File_Reader {
+public class JSONReader extends FileReader {
     private String filePath;
 
     public JSONReader(String filePath) {
@@ -31,7 +30,7 @@ public class JSONReader extends File_Reader {
         JSONParser parser = new JSONParser();
 
         try  {
-            FileReader fileReader = new FileReader(filePath);
+            java.io.FileReader fileReader = new java.io.FileReader(filePath);
             JSONObject mainJsonObj = (JSONObject) parser.parse(fileReader);
 
             //Check the key exists before accessing it

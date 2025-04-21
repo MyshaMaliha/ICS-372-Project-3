@@ -7,7 +7,7 @@ import java.util.Set;
  * Abstract class for reading dealer inventory data from different file formats
  * provides a static method to determine the appropriate reader based on the file extension
  */
-public abstract class File_Reader {
+public abstract class FileReader {
 
     /**
      * Reads a file and parses dealer inventory data based on the file type

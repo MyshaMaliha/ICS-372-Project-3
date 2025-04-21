@@ -8,9 +8,7 @@
       fx:controller="org.example.ics372project3.GUIController"
       stylesheets="@styles.css">
 
-    <Label text="Car Dealership System" style="-fx-font-size: 18px; -fx-font-weight: bold;"
-
-           wrapText="true"/>
+    <Label text="Car Dealership System" style="-fx-font-size: 18px; -fx-font-weight: bold;" wrapText="true"/>
 
     <Button text="Vehicle Operations" onAction="#handleVehiclePage"/>
     <Button text="Dealer Operations" onAction="#handleDealerPage"/>

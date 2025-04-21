@@ -54,7 +54,7 @@ public class InventoryTransfer {
         System.out.println("Vehicle " + vehicleId + " successfully transferred from " +
                 dealerIdFrom + " to " + dealerIdTo + ".");
 
-        File_Writer.exportJSON(dealerSet);
+        FileWriter.exportJSON(dealerSet);
         return true;
     }
 
