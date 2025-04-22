@@ -129,21 +129,4 @@ public class GUIVehiclePageController {
         helper.handleBackToHome(event);
     }
 
-//    @FXML
-//    private void handleBackToHome(ActionEvent event) throws IOException {
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("GUI-view.fxml"));
-//        Parent homeRoot = loader.load();
-//
-//        GUIController homeController = loader.getController();
-//
-//        //Get current stage & scene
-//        Stage currentStage = (Stage)((Node) event.getSource()).getScene().getWindow();
-//        Scene currentScene =  currentStage.getScene();
-//
-//        homeController.setPrimaryStageAndScene(currentStage, currentScene);
-//
-//        currentScene.setRoot(homeRoot);
-//        currentStage.setTitle("Welcome to the Dealership app!");
-//
-//    }
 }

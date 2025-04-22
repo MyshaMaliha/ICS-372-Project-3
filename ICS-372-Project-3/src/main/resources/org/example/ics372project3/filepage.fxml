@@ -10,7 +10,7 @@
 
     <Label text="Car Dealership System" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
 
-    <Button text="1. Add a Vehicle" onAction="#addVehicle"/>
+    <Button text="1. Add Vehicle" onAction="#addVehicle"/>
     <Button text="2. Export JSON file" onAction="#exportJSON"/>
     <Button text="Return to Home Page" onAction="#handleBackToHome"/>
 

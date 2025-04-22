@@ -77,7 +77,7 @@ public class GUIFilePageController {
         alert.getButtonTypes().setAll(manualButton, fileButton, cancelButton);
         // Apply Styles to Dialog Pane
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("org/example/ics372project3/styles.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/org/example/ics372project3/styles.css").toExternalForm());
         dialogPane.getStyleClass().add("dialog-pane");
 
 
@@ -111,24 +111,24 @@ public class GUIFilePageController {
                 // If all dealers are enabled, proceed with file input
                 handleFileInputForExistingDealer();
             } else if (result.get() == manualButton) {
-                // Ask for the dealer ID for manual input
-                String dealerID = helper.getUserInput("Enter Dealer ID to add a vehicle:");
-                if (dealerID == null) return;
-
-                Dealer selectedDealer = findDealerByID(dealerID);
-                if (selectedDealer == null) {
-                    helper.showAlert("Dealer ID not found.");
-                    return;
-                }
-
-                // Ask if the dealer is enabled or disabled
-                if (!selectedDealer.isAcquisitionEnabled()) {
-                    helper.showAlert("Dealer is disabled. Vehicle cannot be added.");
-                    return;
-                }
+//                // Ask for the dealer ID for manual input
+//                String dealerID = helper.getUserInput("Enter Dealer ID to add a vehicle:");
+//                if (dealerID == null) return;
+//
+//                Dealer selectedDealer = findDealerByID(dealerID);
+//                if (selectedDealer == null) {
+//                    helper.showAlert("Dealer ID not found.");
+//                    return;
+//                }
+//
+//                // Ask if the dealer is enabled or disabled
+//                if (!selectedDealer.isAcquisitionEnabled()) {
+//                    helper.showAlert("Dealer is disabled. Vehicle cannot be added.");
+//                    return;
+//                }
 
                 // Process manual input for the selected dealer
-                handleManualInput(selectedDealer);
+                handleManualInput();
             }
         }
     }
@@ -149,12 +149,14 @@ public class GUIFilePageController {
      * Handles the vehicle addition process for a new dealer.
      */
     private void handleNewDealerInput() {
-        String dealerID = helper.getUserInput("Enter New Dealer ID:");
-        if (dealerID == null) return;
+//        String dealerID = helper.getUserInput("Enter New Dealer ID:");
+//        if (dealerID == null) return;
+//
+//        // Create a new dealer and add it to the dealer set
+//        Dealer newDealer = new Dealer(dealerID);
+//        dealerSet.add(newDealer);
 
-        // Create a new dealer and add it to the dealer set
-        Dealer newDealer = new Dealer(dealerID);
-        dealerSet.add(newDealer);
+
 
         // Now ask whether the user wants to add via file or manual input
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -166,19 +168,19 @@ public class GUIFilePageController {
         ButtonType fileButton = new ButtonType("File");
         ButtonType cancelButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        alert.getButtonTypes().setAll(manualButton, fileButton, cancelButton);
-        // Apply Styles to Dialog Pane
+       alert.getButtonTypes().setAll(manualButton, fileButton, cancelButton);
+         //Apply Styles to Dialog Pane
         DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("org/example/ics372project3/styles.css").toExternalForm());
+        dialogPane.getStylesheets().add(getClass().getResource("/org/example/ics372project3/styles.css").toExternalForm());
         dialogPane.getStyleClass().add("dialog-pane");
 
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent()) {
             if (result.get() == fileButton) {
-                handleFileInputForNewDealer(newDealer);
+                handleFileInputForNewDealer();
             } else if (result.get() == manualButton) {
-                handleManualInput(newDealer);
+                handleManualInput();
             }
         }
     }
@@ -255,7 +257,7 @@ public class GUIFilePageController {
     /**
      * Reads vehicle data from a file for a new dealer and updates the dealership records.
      */
-    private void handleFileInputForNewDealer(Dealer newDealer) {
+    private void handleFileInputForNewDealer() {
         String filePath = helper.getUserInput("Enter desired file path:");
         if (filePath != null && !filePath.trim().isEmpty()) {
             try {
@@ -273,7 +275,23 @@ public class GUIFilePageController {
     /**
      * Handles manual input for adding a vehicle.
      */
-    private void handleManualInput(Dealer selectedDealer) {
+    private void handleManualInput() {
+        String dealerID = helper.getUserInput("Enter Dealer ID:");
+        if (dealerID == null) return;
+
+        Dealer selectedDealer = findDealerByID(dealerID);
+        if( selectedDealer == null){
+            selectedDealer = new Dealer(dealerID);
+            dealerSet.add(selectedDealer);
+        }
+
+        // Ask if the dealer is enabled or disabled
+        if (!selectedDealer.isAcquisitionEnabled()) {
+            helper.showAlert("Dealer is disabled. Vehicle cannot be added.");
+            return;
+        }
+
+
         String id = helper.getUserInput("Enter Vehicle ID:");
         String manufacturer = helper.getUserInput("Enter manufacturer:");
         String model = helper.getUserInput("Enter Model:");

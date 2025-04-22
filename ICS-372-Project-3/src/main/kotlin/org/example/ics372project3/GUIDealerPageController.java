@@ -2,7 +2,6 @@ package org.example.ics372project3;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import java.io.IOException;
 import java.util.Set;
 

@@ -1,7 +1,7 @@
 {
   "car_inventory" : [ {
     "dealership_id" : "12513",
-    "dealer_name" : "",
+    "dealer_name" : "Maida INC",
     "is_acquisition_enabled" : true,
     "vehicle_type" : "suv",
     "vehicle_manufacturer" : "Ford",
@@ -12,18 +12,7 @@
     "is_loaned" : false
   }, {
     "dealership_id" : "12513",
-    "dealer_name" : "",
-    "is_acquisition_enabled" : true,
-    "vehicle_type" : "sedan",
-    "vehicle_manufacturer" : "Tesla",
-    "vehicle_model" : "Model 3",
-    "vehicle_id" : "83883",
-    "price" : 50444.0,
-    "acquisition_date" : 1515354694451,
-    "is_loaned" : false
-  }, {
-    "dealership_id" : "12513",
-    "dealer_name" : "",
+    "dealer_name" : "Maida INC",
     "is_acquisition_enabled" : true,
     "vehicle_type" : "pickup",
     "vehicle_manufacturer" : "Chevy",
@@ -31,6 +20,61 @@
     "vehicle_id" : "89343883",
     "price" : 70444.0,
     "acquisition_date" : 1515354694451,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "485",
+    "dealer_name" : "Wacky Bob’s Automall",
+    "is_acquisition_enabled" : true,
+    "vehicle_type" : "suv",
+    "vehicle_manufacturer" : "Land Rover",
+    "vehicle_model" : "Range Rover",
+    "vehicle_id" : "848432",
+    "price" : 17000.0,
+    "acquisition_date" : 0,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "485",
+    "dealer_name" : "Wacky Bob’s Automall",
+    "is_acquisition_enabled" : true,
+    "vehicle_type" : "pickup",
+    "vehicle_manufacturer" : "Toyota",
+    "vehicle_model" : "Tundra",
+    "vehicle_id" : "52523",
+    "price" : 22600.0,
+    "acquisition_date" : 0,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "485",
+    "dealer_name" : "Wacky Bob’s Automall",
+    "is_acquisition_enabled" : true,
+    "vehicle_type" : "sedan",
+    "vehicle_manufacturer" : "Genesis",
+    "vehicle_model" : "G70",
+    "vehicle_id" : "151e5dde",
+    "price" : 36600.0,
+    "acquisition_date" : 0,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "485",
+    "dealer_name" : "Wacky Bob’s Automall",
+    "is_acquisition_enabled" : true,
+    "vehicle_type" : "sports car",
+    "vehicle_manufacturer" : "Mazda",
+    "vehicle_model" : "Miata",
+    "vehicle_id" : "ern222",
+    "price" : 22330.0,
+    "acquisition_date" : 0,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "7676",
+    "dealer_name" : "",
+    "is_acquisition_enabled" : true,
+    "vehicle_type" : "pickup",
+    "vehicle_manufacturer" : "ford",
+    "vehicle_model" : "fifi",
+    "vehicle_id" : "6643",
+    "price" : 15000.0,
+    "acquisition_date" : 4479824,
     "is_loaned" : false
   }, {
     "dealership_id" : "77338",
@@ -42,6 +86,39 @@
     "vehicle_id" : "229393",
     "price" : 49889.0,
     "acquisition_date" : 1515354694451,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "77338",
+    "dealer_name" : "",
+    "is_acquisition_enabled" : true,
+    "vehicle_type" : "sedan",
+    "vehicle_manufacturer" : "Tesla",
+    "vehicle_model" : "Model 3",
+    "vehicle_id" : "83883",
+    "price" : 50444.0,
+    "acquisition_date" : 1515354694451,
+    "is_loaned" : true
+  }, {
+    "dealership_id" : "777",
+    "dealer_name" : "",
+    "is_acquisition_enabled" : false,
+    "vehicle_type" : "sedan",
+    "vehicle_manufacturer" : "toyota",
+    "vehicle_model" : "explore",
+    "vehicle_id" : "575",
+    "price" : 7000.0,
+    "acquisition_date" : 57894345,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "777",
+    "dealer_name" : "",
+    "is_acquisition_enabled" : false,
+    "vehicle_type" : "sedan",
+    "vehicle_manufacturer" : "totoya",
+    "vehicle_model" : "tlt",
+    "vehicle_id" : "5775",
+    "price" : 6776.0,
+    "acquisition_date" : 457783,
     "is_loaned" : false
   } ]
 }
