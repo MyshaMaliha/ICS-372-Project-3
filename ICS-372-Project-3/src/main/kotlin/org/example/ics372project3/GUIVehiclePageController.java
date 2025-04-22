@@ -58,7 +58,7 @@ public class GUIVehiclePageController {
         }else {
             helper.showAlert("Vehicle ID not found or cannot be loaned (sports cars are not allowed).");
         }
-        FileWriter.exportJSON(dealerSet);
+        FileWriter.INSTANCE.exportJSON(dealerSet);
 
     }
     /**
@@ -97,7 +97,7 @@ public class GUIVehiclePageController {
         } else {
             helper.showAlert("Vehicle ID not found or was not loaned out.");
         }
-        FileWriter.exportJSON(dealerSet);
+        FileWriter.INSTANCE.exportJSON(dealerSet);
 
     }
     /**
@@ -121,7 +121,7 @@ public class GUIVehiclePageController {
         }
 
         helper.showAlert(result.toString().isEmpty() ? "No vehicles are currently loaned." : result.toString());
-        FileWriter.exportJSON(dealerSet);
+        FileWriter.INSTANCE.exportJSON(dealerSet);
 
     }
     @FXML

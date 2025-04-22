@@ -13,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import static org.example.ics372project3.FileReader.*;
+
 public class GUIController {
 
     @FXML

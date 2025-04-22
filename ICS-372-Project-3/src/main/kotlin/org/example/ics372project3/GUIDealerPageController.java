@@ -56,7 +56,7 @@ public class GUIDealerPageController {
                 d.enableAcquisition();
                 helper.showAlert("Dealer " + dealerID + " is now enabled.");
                 found = true;
-                FileWriter.exportJSON(dealerSet);
+                FileWriter.INSTANCE.exportJSON(dealerSet);
                 break;
             }
         }
@@ -81,7 +81,7 @@ public class GUIDealerPageController {
                 d.disableAcquisition();
                 helper.showAlert("Dealer " + dealerID + " is now disabled.");
                 found = true;
-                FileWriter.exportJSON(dealerSet);
+                FileWriter.INSTANCE.exportJSON(dealerSet);
                 break;
             }
         }
@@ -108,7 +108,7 @@ public class GUIDealerPageController {
         dealer.setDealerName(newName) ;
 
         helper.showAlert("Dealer name updated successfully.");
-        FileWriter.exportJSON(dealerSet);
+        FileWriter.INSTANCE.exportJSON(dealerSet);
 
     }
 

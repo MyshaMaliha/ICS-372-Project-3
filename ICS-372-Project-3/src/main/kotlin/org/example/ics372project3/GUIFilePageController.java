@@ -57,7 +57,7 @@ public class GUIFilePageController {
                 handleNewDealerInput();
             }
         }
-        FileWriter.exportJSON(dealerSet);
+        FileWriter.INSTANCE.exportJSON(dealerSet);
     }
 
     /**
@@ -244,7 +244,7 @@ public class GUIFilePageController {
                 try {
                     FileReader.readFile(filePath, dealerSet);  // Assuming this reads and adds vehicles
                     helper.showAlert("Vehicles loaded from file.");
-                    FileWriter.exportJSON(dealerSet);
+                    FileWriter.INSTANCE.exportJSON(dealerSet);
                 } catch (IOException e) {
                     helper.showAlert("Error loading file: " + e.getMessage());
                 }
@@ -263,7 +263,7 @@ public class GUIFilePageController {
             try {
                 FileReader.readFile(filePath, dealerSet);
                 helper.showAlert("Vehicles loaded from file.");
-                FileWriter.exportJSON(dealerSet);
+                FileWriter.INSTANCE.exportJSON(dealerSet);
             } catch (IOException e) {
                 helper.showAlert("Error loading file: " + e.getMessage());
             }
@@ -316,11 +316,11 @@ public class GUIFilePageController {
     @FXML
     private void exportJSON() throws IOException {
         try {
-            FileWriter.exportJSON(dealerSet);
+            FileWriter.INSTANCE.exportJSON(dealerSet);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        FileWriter.exportJSON(dealerSet);
+        FileWriter.INSTANCE.exportJSON(dealerSet);
         helper.showAlert("Exported JSON file successfully.");
     }
 
