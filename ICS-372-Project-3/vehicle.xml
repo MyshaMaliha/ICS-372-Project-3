@@ -11,12 +11,12 @@
             <Make>Toyota</Make>
             <Model>Tundra</Model>
         </Vehicle>
-        <Vehicle type="sedan" id="151e5dde">
+        <Vehicle type="sedan" id="151">
             <Price unit="dollars">36600</Price>
             <Make>Genesis</Make>
             <Model>G70</Model>
         </Vehicle>
-        <Vehicle type="sports car" id="ern222">
+        <Vehicle type="sports car" id="222">
             <Price unit="dollars">22330</Price>
             <Make>Mazda</Make>
             <Model>Miata</Model>

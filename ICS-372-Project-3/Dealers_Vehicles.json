@@ -13,7 +13,7 @@
   }, {
     "dealership_id" : "485",
     "dealer_name" : "Wacky Bob’s Automall",
-    "is_acquisition_enabled" : true,
+    "is_acquisition_enabled" : false,
     "vehicle_type" : "suv",
     "vehicle_manufacturer" : "Land Rover",
     "vehicle_model" : "Range Rover",
@@ -24,7 +24,7 @@
   }, {
     "dealership_id" : "485",
     "dealer_name" : "Wacky Bob’s Automall",
-    "is_acquisition_enabled" : true,
+    "is_acquisition_enabled" : false,
     "vehicle_type" : "pickup",
     "vehicle_manufacturer" : "Toyota",
     "vehicle_model" : "Tundra",
@@ -35,7 +35,7 @@
   }, {
     "dealership_id" : "485",
     "dealer_name" : "Wacky Bob’s Automall",
-    "is_acquisition_enabled" : true,
+    "is_acquisition_enabled" : false,
     "vehicle_type" : "sedan",
     "vehicle_manufacturer" : "Genesis",
     "vehicle_model" : "G70",
@@ -46,7 +46,7 @@
   }, {
     "dealership_id" : "485",
     "dealer_name" : "Wacky Bob’s Automall",
-    "is_acquisition_enabled" : true,
+    "is_acquisition_enabled" : false,
     "vehicle_type" : "sports car",
     "vehicle_manufacturer" : "Mazda",
     "vehicle_model" : "Miata",
@@ -57,13 +57,57 @@
   }, {
     "dealership_id" : "485",
     "dealer_name" : "Wacky Bob’s Automall",
-    "is_acquisition_enabled" : true,
+    "is_acquisition_enabled" : false,
     "vehicle_type" : "pickup",
     "vehicle_manufacturer" : "Chevy",
     "vehicle_model" : "Silverado",
     "vehicle_id" : "89343883",
     "price" : 70444.0,
     "acquisition_date" : 1515354694451,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "485",
+    "dealer_name" : "Wacky Bob’s Automall",
+    "is_acquisition_enabled" : false,
+    "vehicle_type" : "suv",
+    "vehicle_manufacturer" : "Land Rover",
+    "vehicle_model" : "Range Rover",
+    "vehicle_id" : "848432",
+    "price" : 17000.0,
+    "acquisition_date" : 0,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "485",
+    "dealer_name" : "Wacky Bob’s Automall",
+    "is_acquisition_enabled" : false,
+    "vehicle_type" : "pickup",
+    "vehicle_manufacturer" : "Toyota",
+    "vehicle_model" : "Tundra",
+    "vehicle_id" : "52523",
+    "price" : 22600.0,
+    "acquisition_date" : 0,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "485",
+    "dealer_name" : "Wacky Bob’s Automall",
+    "is_acquisition_enabled" : false,
+    "vehicle_type" : "sedan",
+    "vehicle_manufacturer" : "Genesis",
+    "vehicle_model" : "G70",
+    "vehicle_id" : "1515",
+    "price" : 36600.0,
+    "acquisition_date" : 0,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "485",
+    "dealer_name" : "Wacky Bob’s Automall",
+    "is_acquisition_enabled" : false,
+    "vehicle_type" : "sports car",
+    "vehicle_manufacturer" : "Mazda",
+    "vehicle_model" : "Miata",
+    "vehicle_id" : "222",
+    "price" : 22330.0,
+    "acquisition_date" : 0,
     "is_loaned" : false
   }, {
     "dealership_id" : "7676",

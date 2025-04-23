@@ -14,7 +14,7 @@ abstract class FileReader {
      * @throws IOException (if error occurs while reading the file)
      */
     @Throws(IOException::class)
-    abstract fun parse(dealerSet: Set<Dealer?>?)
+    abstract fun parse(dealerSet: MutableSet<Dealer?>)
 
     companion object {
         /**
@@ -26,7 +26,7 @@ abstract class FileReader {
          */
         @Throws(IOException::class)
         @JvmStatic
-        fun readFile(filePath: String, dealerSet: Set<Dealer?>?) {
+        fun readFile(filePath: String, dealerSet: MutableSet<Dealer?>) {
             if (filePath.endsWith(".json")) {
                 JSONReader(filePath).parse(dealerSet) // Calls the JSON parser if file is JSON
             } else if (filePath.endsWith(".xml")) {

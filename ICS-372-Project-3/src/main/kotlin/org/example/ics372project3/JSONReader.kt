@@ -1,146 +1,149 @@
-package org.example.ics372project3;
+package org.example.ics372project3
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.IOException;
-import java.util.Set;
+import org.json.simple.JSONArray
+import org.json.simple.JSONObject
+import org.json.simple.parser.JSONParser
+import org.json.simple.parser.ParseException
+import java.io.IOException
+import java.util.*
 
 /**
  * This class reads and parses dealer inventory data from a JSON file
  * It extends abstract File_Reader and implements the parsing method for JSON File
  */
-public class JSONReader extends FileReader {
-    private String filePath;
-
-    public JSONReader(String filePath) {
-        this.filePath = filePath;
-    }
-
+ class JSONReader(val filePath: String) : FileReader() {
     /**
      * parses the JSON File and Loads dealer and Vehicle data into the provided dealer set
      * IF the JSON file is empty or improperly formatted,appropriate message will be shown
      * @param dealerSet (the set of dealers where parsed data will be stored)
      * @throws IOException (if errors occurs while reading  the file)
      */
-    @Override
-    public void parse(Set<Dealer> dealerSet) throws IOException {
-        JSONParser parser = new JSONParser();
+    @Throws(IOException::class)
+     override fun parse(dealerSet: MutableSet<Dealer?>) {
+        val parser = JSONParser()
 
-        try  {
-            java.io.FileReader fileReader = new java.io.FileReader(filePath);
-            JSONObject mainJsonObj = (JSONObject) parser.parse(fileReader);
+        try {
+            val fileReader = java.io.FileReader(filePath)
+            val mainJsonObj = parser.parse(fileReader) as JSONObject
 
             //Check the key exists before accessing it
-            if(!mainJsonObj.containsKey("car_inventory")){
-                System.out.println("Empty JSON File.");
+            if (!mainJsonObj.containsKey("car_inventory")) {
+                println("Empty JSON File.")
             }
 
-            JSONArray carInventory = (JSONArray) mainJsonObj.get("car_inventory");
+            val carInventory = mainJsonObj["car_inventory"] as JSONArray?
 
             //Check the carInventory is null before iterating it
             if (carInventory == null) {
-                System.out.println("Car Inventory is null.");
-                return;
+                println("Car Inventory is null.")
+                return
             }
-            if(carInventory.isEmpty()){
-                System.out.println("File is empty. Import dealer data into the file.");
-                return;
+            if (carInventory.isEmpty()) {
+                println("File is empty. Import dealer data into the file.")
+                return
             }
 
-            for (Object vehicleObj : carInventory) {
-                JSONObject vehicle = (JSONObject) vehicleObj;
+            for (vehicleObj in carInventory) {
+                val vehicle = vehicleObj as JSONObject
 
-                String type = (String) vehicle.get("vehicle_type");
-                String dealerName;
-                if(vehicle.containsKey("dealer_name")){
-                    dealerName = (String) vehicle.get("dealer_name");}
-                else{
-                    dealerName = "";
+                val type = vehicle["vehicle_type"] as String
+                val dealerName: String
+                dealerName = if (vehicle.containsKey("dealer_name")) {
+                    vehicle["dealer_name"] as String
+                } else {
+                    ""
                 }
-                boolean isAcquisitionEnabled;
-                if(vehicle.containsKey("is_acquisition_enabled")){
-                    isAcquisitionEnabled = (boolean) vehicle.get("is_acquisition_enabled");
-                }else{
-                    isAcquisitionEnabled = true;
+                val isAcquisitionEnabled: Boolean
+                isAcquisitionEnabled = if (vehicle.containsKey("is_acquisition_enabled")) {
+                    vehicle["is_acquisition_enabled"] as Boolean
+                } else {
+                    true
                 }
 
-                String dealershipID = (String) vehicle.get("dealership_id");
-                String manufacturer = (String) vehicle.get("vehicle_manufacturer");
-                String model = (String) vehicle.get("vehicle_model");
-                String id = (String) vehicle.get("vehicle_id");
-                long acquisitionDate = ((Number) vehicle.get("acquisition_date")).longValue();
-                long price = ((Number) vehicle.get("price")).longValue();
+                val dealershipID = vehicle["dealership_id"] as String
+                val manufacturer = vehicle["vehicle_manufacturer"] as String
+                val model = vehicle["vehicle_model"] as String
+                val id = vehicle["vehicle_id"] as String
+                val acquisitionDate = (vehicle["acquisition_date"] as Number).toLong()
+                val price = (vehicle["price"] as Number).toLong()
 
-                boolean vehicleIsLoaned = false;
-                if(vehicle.containsKey("is_loaned")){
-                    vehicleIsLoaned = (boolean) vehicle.get("is_loaned");
-                }else{
-                    vehicleIsLoaned = false;
+                var vehicleIsLoaned = false
+                vehicleIsLoaned = if (vehicle.containsKey("is_loaned")) {
+                    vehicle["is_loaned"] as Boolean
+                } else {
+                    false
                 }
-                Vehicle newVehicle = checkType(type, manufacturer, model, id, acquisitionDate, price, vehicleIsLoaned);
+                val newVehicle = checkType(type, manufacturer, model, id, acquisitionDate, price.toDouble(), vehicleIsLoaned)
 
-                boolean found = false;
-                for (Dealer d : dealerSet) {
-                    if (d.getDealerID().equals(dealershipID)) {
-                         //d.addVehicle(newVehicle);
-                        d.getVehicleList().add(newVehicle);  //Temporary bypass "isAcquisitionEnabled" to ensure all JSON vehicles load
-                        d.setDealerName(dealerName);
-                        d.setAcquisitionEnabled(isAcquisitionEnabled);
-                        found = true;
-                        break;
+                var found = false
+
+//           if(dealerSet != null){
+                for (d in dealerSet) {
+                    if (d?.dealerID == dealershipID) {
+                        //d.addVehicle(newVehicle);
+                        if (newVehicle != null) {
+                            d.getVehicleList().add(newVehicle)
+                        } //Temporary bypass "isAcquisitionEnabled" to ensure all JSON vehicles load
+                        d.dealerName = dealerName
+                        d.isAcquisitionEnabled = isAcquisitionEnabled
+                        found = true
+                        break
                     }
                 }
-                if (!found) {
-                    Dealer d = new Dealer(dealershipID);
-                    if(dealerName.length()>0 ){
-                        d.setDealerName(dealerName);
+
+              if (!found) {
+                    val d = Dealer(dealershipID)
+                    if (dealerName.length > 0) {
+                        d.dealerName = dealerName
                     }
                     //d.addVehicle(newVehicle);
-                    d.getVehicleList().add(newVehicle);  //Temporary bypass "isAcquisitionEnabled" to ensure all JSON vehicles load
-                    d.setAcquisitionEnabled(isAcquisitionEnabled);//Correctly set from JSON
-                    dealerSet.add(d);
+                  if(newVehicle != null) {
+                      d.getVehicleList()
+                          .add(newVehicle) //Temporary bypass "isAcquisitionEnabled" to ensure all JSON vehicles load
+                  }
+                    d.isAcquisitionEnabled = isAcquisitionEnabled //Correctly set from JSON
+                    dealerSet.add(d)
                 }
             }
-        } catch (ParseException e) {
-            System.out.println("Error parsing JSON file: " + e.getMessage());
+
+        } catch (e: ParseException) {
+            println("Error parsing JSON file: " + e.message)
         }
     }
 
-    /**
-     * Creates a specific type of Vehicle Object.
-     *
-     * @param type            Vehicle type
-     * @param manufacturer    Vehicle manufacturer
-     * @param model           Vehicle model
-     * @param id              Vehicle ID
-     * @param acquisitionDate Vehicle AcquisitionDate
-     * @param price           Vehicle price
-     * @param vehicleIsLoaned
-     * @return Vehicle        A new specific type Vehicle object will be returned
-     */
-    static Vehicle checkType(String type, String manufacturer, String model, String id, long acquisitionDate, double price, boolean vehicleIsLoaned) {
-        Vehicle newVehicle = null;
-        switch (type.toLowerCase()) {
-            case "suv":
-                newVehicle = new SUV(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned);
-                break;
-            case "sedan":
-                newVehicle = new Sedan(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned);
-                break;
-            case "pickup":
-                newVehicle = new Pickup(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned);
-                break;
-            case "sports car":
-                newVehicle = new SportsCar(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned);
-                break;
-            default:
-                System.out.println("Unknown vehicle type: " + type);
-                break;
+    companion object {
+        /**
+         * Creates a specific type of Vehicle Object.
+         *
+         * @param type            Vehicle type
+         * @param manufacturer    Vehicle manufacturer
+         * @param model           Vehicle model
+         * @param id              Vehicle ID
+         * @param acquisitionDate Vehicle AcquisitionDate
+         * @param price           Vehicle price
+         * @param vehicleIsLoaned
+         * @return Vehicle        A new specific type Vehicle object will be returned
+         */
+        @JvmStatic
+        fun checkType(
+            type: String,
+            manufacturer: String,
+            model: String,
+            id: String,
+            acquisitionDate: Long,
+            price: Double,
+            vehicleIsLoaned: Boolean
+        ): Vehicle? {
+            var newVehicle: Vehicle? = null
+            when (type.lowercase(Locale.getDefault())) {
+                "suv" -> newVehicle = SUV(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned)
+                "sedan" -> newVehicle = Sedan(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned)
+                "pickup" -> newVehicle = Pickup(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned)
+                "sports car" -> newVehicle = SportsCar(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned)
+                else -> println("Unknown vehicle type: $type")
+            }
+            return newVehicle
         }
-        return newVehicle;
     }
 }
 

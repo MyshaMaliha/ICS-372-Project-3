@@ -29,7 +29,7 @@ class Dealer( val dealerID: String) {
         return false
     }
 
-    fun getVehicleList(): List<Vehicle> {
+    fun getVehicleList(): MutableList<Vehicle> {
         return vehicleList
     }
 

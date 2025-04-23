@@ -12,7 +12,7 @@
 
     <Button text="Vehicle Operations" onAction="#handleVehiclePage"/>
     <Button text="Dealer Operations" onAction="#handleDealerPage"/>
-    <Button text="File Operations" onAction="#handleFilePage"/>
+    <Button text="Add Operations" onAction="#handleFilePage"/>
 
 
 

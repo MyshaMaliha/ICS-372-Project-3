@@ -1,101 +1,90 @@
-package org.example.ics372project3;
+package org.example.ics372project3
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.IOException;
-import java.util.Set;
+import org.w3c.dom.Element
+import org.w3c.dom.Node
+import java.io.File
+import java.io.IOException
+import java.util.*
+import javax.xml.parsers.DocumentBuilderFactory
 
 /**
  * This class reads and parses dealer inventory data from a XML file
  * It extends abstract File_Reader and implements the parsing method for XML File
  */
-public class XMLReader extends FileReader {
-    private String filePath;
-
-
-    /**
-     * Constructs a XMLReader with the specific file path
-     * @param filePath (XML File path containing dealer and vehicle data)
-     */
-    public XMLReader(String filePath) {
-        this.filePath = filePath;
-    }
-
+class XMLReader
+/**
+ * Constructs a XMLReader with the specific file path
+ * @param filePath (XML File path containing dealer and vehicle data)
+ */(private val filePath: String) : FileReader() {
     /**
      * Parses the xml file and loads dealer and vehicle data into the provided dealer set
      * if the xml file is invalid or improperly formatted like missing Dealer ID, Vehicle ID or Vehicle type. it stops processing the file and shows error
      * @param dealerSet (the set of dealers where parsed data will be stored)
      * @throws IOException if errors occurs while reading or parsing the xml file
      */
-    @Override
-    public void parse(Set<Dealer> dealerSet) throws IOException {
+    @Throws(IOException::class)
+    override fun parse(dealerSet: MutableSet<Dealer?>) {
         try {
-            File xmlFile = new File(filePath);
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            Document doc = builder.parse(xmlFile);
-            doc.getDocumentElement().normalize();
+            val xmlFile = File(filePath)
+            val factory = DocumentBuilderFactory.newInstance()
+            val builder = factory.newDocumentBuilder()
+            val doc = builder.parse(xmlFile)
+            doc.documentElement.normalize()
 
-            NodeList dealerNodes = doc.getElementsByTagName("Dealer");
+            val dealerNodes = doc.getElementsByTagName("Dealer")
 
-            for (int i = 0; i < dealerNodes.getLength(); i++) {
-                Node dealerNode = dealerNodes.item(i);
-                if (dealerNode.getNodeType() == Node.ELEMENT_NODE) {
-                    Element dealerElement = (Element) dealerNode;
+            for (i in 0..<dealerNodes.length) {
+                val dealerNode = dealerNodes.item(i)
+                if (dealerNode.nodeType == Node.ELEMENT_NODE) {
+                    val dealerElement = dealerNode as Element
 
                     // Ensure dealer has a valid ID
-                    String dealerID = dealerElement.getAttribute("id").trim();
+                    val dealerID = dealerElement.getAttribute("id").trim { it <= ' ' }
                     if (dealerID.isEmpty()) {
-                        throw new IOException("Error: Dealer is missing 'id' attribute. Stopping file processing.");
+                        throw IOException("Error: Dealer is missing 'id' attribute. Stopping file processing.")
                     }
 
-                    Dealer dealer = getOrCreateDealer(dealerID, dealerSet);
+                    val dealer = getOrCreateDealer(dealerID, dealerSet)
 
                     // Extract dealer name if it exists
-                    NodeList nameNodes = dealerElement.getElementsByTagName("Name");
-                    if (nameNodes.getLength() > 0) {
-                        dealer.setDealerName(nameNodes.item(0).getTextContent().trim());
+                    val nameNodes = dealerElement.getElementsByTagName("Name")
+                    if (nameNodes.length > 0) {
+                        dealer.dealerName = nameNodes.item(0).textContent.trim { it <= ' ' }
                     }
 
-                    NodeList vehicleNodes = dealerElement.getElementsByTagName("Vehicle");
-                    for (int j = 0; j < vehicleNodes.getLength(); j++) {
-                        Node vehicleNode = vehicleNodes.item(j);
-                        if (vehicleNode.getNodeType() == Node.ELEMENT_NODE) {
-                            Element vehicleElement = (Element) vehicleNode;
+                    val vehicleNodes = dealerElement.getElementsByTagName("Vehicle")
+                    for (j in 0..<vehicleNodes.length) {
+                        val vehicleNode = vehicleNodes.item(j)
+                        if (vehicleNode.nodeType == Node.ELEMENT_NODE) {
+                            val vehicleElement = vehicleNode as Element
 
                             // Ensure vehicle has a type and ID
-                            String type = vehicleElement.getAttribute("type").trim();
-                            String vehicleID = vehicleElement.getAttribute("id").trim();
+                            val type = vehicleElement.getAttribute("type").trim { it <= ' ' }
+                            val vehicleID = vehicleElement.getAttribute("id").trim { it <= ' ' }
                             if (type.isEmpty() || vehicleID.isEmpty()) {
-                                throw new IOException("Error: Vehicle missing 'type' or 'id' in Dealer " + dealerID + ". Stopping file processing.");
+                                throw IOException("Error: Vehicle missing 'type' or 'id' in Dealer $dealerID. Stopping file processing.")
                             }
 
                             // Extract optional fields with defaults
-                            String manufacturer = getElementText(vehicleElement, "Make", "Unknown");
-                            String model = getElementText(vehicleElement, "Model", "Unknown");
-                            double price = getElementDouble(vehicleElement, "Price", 0.0);
-                            boolean vehicleIsLoaned = getElementBoolean(vehicleElement, "is_loaned", false);
+                            val manufacturer = getElementText(vehicleElement, "Make", "Unknown")
+                            val model = getElementText(vehicleElement, "Model", "Unknown")
+                            val price = getElementDouble(vehicleElement, "Price", 0.0)
+                            val vehicleIsLoaned = getElementBoolean(vehicleElement, "is_loaned", false)
 
                             // Create vehicle and add it to the dealer
-                            Vehicle vehicle = checkType(type, manufacturer, model, vehicleID, 0, price, vehicleIsLoaned);
+                            val vehicle = checkType(type, manufacturer, model, vehicleID, 0, price, vehicleIsLoaned)
                             if (vehicle != null) {
-                                dealer.addVehicle(vehicle);
+                                dealer.addVehicle(vehicle)
                             }
                         }
                     }
                 }
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage()); // Print the error message before stopping
-            throw e; // Rethrow the exception to completely stop the program
-        } catch (Exception e) {
-            throw new IOException("Error parsing XML file: " + e.getMessage());
+        } catch (e: IOException) {
+            println(e.message) // Print the error message before stopping
+            throw e // Rethrow the exception to completely stop the program
+        } catch (e: Exception) {
+            throw IOException("Error parsing XML file: " + e.message)
         }
     }
 
@@ -105,39 +94,15 @@ public class XMLReader extends FileReader {
      * @param dealerSet  The set of the dealers to search or add to
      * @return the existing or  newly created dealer
      */
-    private Dealer getOrCreateDealer(String dealerID, Set<Dealer> dealerSet) {
-        for (Dealer d : dealerSet) {
-            if (d.getDealerID().equals(dealerID)) {
-                return d;
+    private fun getOrCreateDealer(dealerID: String, dealerSet: MutableSet<Dealer?>): Dealer {
+        for (d in dealerSet) {
+            if (d?.dealerID == dealerID) {
+                return d
             }
         }
-        Dealer newDealer = new Dealer(dealerID);
-        dealerSet.add(newDealer);
-        return newDealer;
-    }
-
-    /**
-     * Creates a vehicle object based on the vehicle type
-     * @param type  The type of the vehicle(e.g. SUV. Sedan..)
-     * @param manufacturer  The manufacturer of the vehicle
-     * @param model  The model of the vehicle
-     * @param id  The id of the vehicle
-     * @param acquisitionDate The acquisitionDate of the vehicle
-     * @param price  The price of the vehicle
-     * @param vehicleIsLoaned  weather  the vehicle is loaned
-     * @return the vehicle object, or null if the type is unknown
-     */
-    private static Vehicle checkType(String type, String manufacturer, String model, String id, long acquisitionDate, double price, boolean vehicleIsLoaned) {
-        return switch (type.toLowerCase()) {
-            case "suv" -> new SUV(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned);
-            case "sedan" -> new Sedan(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned);
-            case "pickup" -> new Pickup(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned);
-            case "sports car" -> new SportsCar(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned);
-            default -> {
-                System.out.println("Unknown vehicle type: " + type + " (Dealer ID: " + id + ")");
-                yield null;
-            }
-        };
+        val newDealer = Dealer(dealerID)
+        dealerSet.add(newDealer)
+        return newDealer
     }
 
     /**
@@ -147,9 +112,9 @@ public class XMLReader extends FileReader {
      * @param defaultValue the default value to return if the tag is not found
      * @return   the text content of the tag or the default value if the tag is not found
      */
-    private String getElementText(Element parent, String tagName, String defaultValue) {
-        NodeList nodeList = parent.getElementsByTagName(tagName);
-        return (nodeList.getLength() > 0) ? nodeList.item(0).getTextContent().trim() : defaultValue;
+    private fun getElementText(parent: Element, tagName: String, defaultValue: String): String {
+        val nodeList = parent.getElementsByTagName(tagName)
+        return if (nodeList.length > 0) nodeList.item(0).textContent.trim { it <= ' ' } else defaultValue
     }
 
     /**
@@ -159,13 +124,13 @@ public class XMLReader extends FileReader {
      * @param defaultValue  The default value to return if the tag is not found or contains invalid data
      * @return The double value of the tag, or the default value if the tag is not found or contains invalid data.
      */
-    private double getElementDouble(Element parent, String tagName, double defaultValue) {
+    private fun getElementDouble(parent: Element, tagName: String, defaultValue: Double): Double {
         try {
-            NodeList nodeList = parent.getElementsByTagName(tagName);
-            return (nodeList.getLength() > 0) ? Double.parseDouble(nodeList.item(0).getTextContent().trim()) : defaultValue;
-        } catch (NumberFormatException e) {
-            System.out.println("Warning: Invalid number format for " + tagName + ". Using default: " + defaultValue);
-            return defaultValue;
+            val nodeList = parent.getElementsByTagName(tagName)
+            return if (nodeList.length > 0) nodeList.item(0).textContent.trim { it <= ' ' }.toDouble() else defaultValue
+        } catch (e: NumberFormatException) {
+            println("Warning: Invalid number format for $tagName. Using default: $defaultValue")
+            return defaultValue
         }
     }
 
@@ -176,9 +141,43 @@ public class XMLReader extends FileReader {
      * @param defaultValue
      * @return  The boolean value of the tag, or the default value if the tag is not found.
      */
-    private boolean getElementBoolean(Element parent, String tagName, boolean defaultValue) {
-        NodeList nodeList = parent.getElementsByTagName(tagName);
-        return (nodeList.getLength() > 0) ? Boolean.parseBoolean(nodeList.item(0).getTextContent().trim()) : defaultValue;
+    private fun getElementBoolean(parent: Element, tagName: String, defaultValue: Boolean): Boolean {
+        val nodeList = parent.getElementsByTagName(tagName)
+        return if (nodeList.length > 0) nodeList.item(0).textContent.trim { it <= ' ' }.toBoolean() else defaultValue
+    }
+
+    companion object {
+        /**
+         * Creates a vehicle object based on the vehicle type
+         * @param type  The type of the vehicle(e.g. SUV. Sedan..)
+         * @param manufacturer  The manufacturer of the vehicle
+         * @param model  The model of the vehicle
+         * @param id  The id of the vehicle
+         * @param acquisitionDate The acquisitionDate of the vehicle
+         * @param price  The price of the vehicle
+         * @param vehicleIsLoaned  weather  the vehicle is loaned
+         * @return the vehicle object, or null if the type is unknown
+         */
+        private fun checkType(
+            type: String,
+            manufacturer: String,
+            model: String,
+            id: String,
+            acquisitionDate: Long,
+            price: Double,
+            vehicleIsLoaned: Boolean
+        ): Vehicle? {
+            return when (type.lowercase(Locale.getDefault())) {
+                "suv" -> SUV(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned)
+                "sedan" -> Sedan(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned)
+                "pickup" -> Pickup(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned)
+                "sports car" -> SportsCar(id, manufacturer, model, acquisitionDate, price, vehicleIsLoaned)
+                else -> {
+                    println("Unknown vehicle type: $type (Dealer ID: $id)")
+                    null
+                }
+            }
+        }
     }
 }
 
