@@ -16,7 +16,7 @@ class LoanVehicle {
     fun loanVehicle(dealer: Dealer, vehicleID: String): Boolean {
         for (v in dealer.getVehicleList()) {
             if (v.vehicleID == vehicleID) {
-                if (v.type.lowercase(Locale.getDefault()).contains("sports car")) {
+                if ((v.type?.lowercase(Locale.getDefault()) ?: "").contains("sports car")) {
                     return false //cannot rent sports car
                 }
                 v.isLoaned = true
@@ -32,15 +32,26 @@ class LoanVehicle {
      * @param vehicleID The ID of the vehicle to be returned.
      * @return `true` if the vehicle is successfully returned, `false` if the vehicle is not found or not loaned.
      */
+//    fun returnVehicle(dealer: Dealer, vehicleID: String): Boolean {
+//        for (v in dealer.getVehicleList()) {
+//                  if (v.vehicleID == vehicleID && v.isLoaned) {
+//                      v.isLoaned = false
+//                      return true
+//                  }
+//              }
+//
+//        return false
+//    }
     fun returnVehicle(dealer: Dealer, vehicleID: String): Boolean {
         for (v in dealer.getVehicleList()) {
-            if (v.vehicleID == vehicleID && v.isLoaned) {
+            if (v.vehicleID == vehicleID && v.isLoaned == true) {
                 v.isLoaned = false
                 return true
             }
         }
         return false
     }
+
 
     /**
      * Gets a list of all vehicles that are currently loaned out by the dealer.
@@ -51,7 +62,7 @@ class LoanVehicle {
     fun getLoanedVehicles(dealer: Dealer): List<Vehicle> {
         val lonedVehicleList: MutableList<Vehicle> = ArrayList()
         for (v in dealer.getVehicleList()) {
-            if (v.isLoaned) {
+            if (v.isLoaned == true) {
                 lonedVehicleList.add(v)
             }
         }

@@ -1,13 +1,13 @@
 package org.example.ics372project3
 
 abstract class Vehicle(// Getter methods to retrieve the values of instance variables/attributes
-    var vehicleID: String,
-    var manufacturer: String,
-    var model: String,
-    var acquisitionDate: Long,
-    var price: Double,
-    var type: String, //adding new filed to track loaned vehicle
-    var isLoaned: Boolean
+    var vehicleID: String? = null,
+    var manufacturer: String? = null,
+    var model: String? = null,
+    var acquisitionDate: Long? = null,
+    var price: Double? = null,
+    var type: String? = null, //adding new filed to track loaned vehicle
+    var isLoaned: Boolean? = false
 )
 
 internal class SUV  //Constructor

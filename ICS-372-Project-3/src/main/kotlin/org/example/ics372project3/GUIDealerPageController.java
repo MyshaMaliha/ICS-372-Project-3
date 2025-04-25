@@ -1,8 +1,13 @@
 package org.example.ics372project3;
-
+import javax.swing.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
+
 import java.io.IOException;
+import java.util.Optional;
 import java.util.Set;
 
 public class GUIDealerPageController {
@@ -144,14 +149,37 @@ public class GUIDealerPageController {
             boolean success = iT.transferVehicle(dealerSet, dealerIdFrom, dealerIdTo, vehicleId);
 
             // if it did not transfer, print error message
-            if (!success) {
+            if (success) {
+                helper.showAlert("Vehicle transferred successfully");
+            } else {
                 helper.showAlert("Transfer failed. Please check your inputs and try again.");
             }
 
-            // asks the user if they want to transfer another vehicle
-            String response = helper.getUserInput("Do you want to transfer another vehicle? (yes/no)");
-            if (response == null || !response.equalsIgnoreCase("yes")) {
-                continueToTransfer = false;
+
+            // Ask if the user wants to transfer another vehicle using Yes/No dialog
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Continue Vehicle");
+            alert.setHeaderText("Do you want to transfer another vehicle?");
+            alert.setContentText("Select an option below:");
+
+            ButtonType yesButton = new ButtonType("Yes");
+            ButtonType noButton = new ButtonType("No");
+
+            alert.getButtonTypes().setAll(yesButton, noButton);
+
+            //Apply styles to Dialog Pane
+            DialogPane dialogPane = alert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/org/example/ics372project3/styles.css").toExternalForm());
+            dialogPane.getStyleClass().add("dialog-pane");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if(result.isPresent()){
+                if(result.get() == yesButton){
+                    transferInventory();
+                }
+                else if(result.get() == noButton){
+                   continueToTransfer = false;
+                }
             }
 
 
@@ -163,26 +191,5 @@ public class GUIDealerPageController {
         helper.handleBackToHome(event);
     }
 
-//    @FXML
-//    private void handleBackToHome(ActionEvent event) throws IOException {
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("GUI-view.fxml"));
-//        Parent homePageRoot = loader.load();  <---was creating a new instance of GUIController
-//    }
-//@FXML
-//private void handleBackToHome(ActionEvent event) throws IOException {
-//    FXMLLoader loader = new FXMLLoader(getClass().getResource("GUI-view.fxml"));
-//    Parent homeRoot = loader.load();
-//
-//    GUIController homeController = loader.getController();
-//
-//    // Get current stage and scene
-//    Stage currentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//    Scene currentScene = currentStage.getScene();
-//
-//    // set the scene and stage again!
-//    homeController.setPrimaryStageAndScene(currentStage, currentScene);
-//
-//    currentScene.setRoot(homeRoot);
-//    currentStage.setTitle("Welcome to the Dealership app!");
-//}
+
 }

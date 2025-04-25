@@ -21,42 +21,52 @@ object FileWriter {  //FileWriter is a static utility class
      */
     @Throws(IOException::class)
     fun exportJSON(dealerSet: Set<Dealer>) {
-        val objMap = ObjectMapper() //Used to convert JAVA obj into JSON
-        objMap.enable(SerializationFeature.INDENT_OUTPUT) //makes output JSON more readable
-        val outerList: MutableMap<String, List<Map<String, Any>>> =
-            LinkedHashMap() //outerList:Map-> key="Car Inventory", value= List of vehicles (inner List)
-        //Stores the entire inventory under a key ("Car Inventory"), making the JSON structured.
-        val innerList: MutableList<Map<String, Any>> =
-            ArrayList() //innerList: list of multiple vehicle records(For Each Vehicle-> Vehicle's attributed stored in a Map(key-value pairs)
+        val objMap = ObjectMapper()
+        objMap.enable(SerializationFeature.INDENT_OUTPUT)
 
-        for (d in dealerSet) {   //loops through all dealers in dealerSet
-            for (v in d.getVehicleList()) {    //loops through all vehicles owned by that dealer
-                val vehicleData: MutableMap<String, Any> =
-                    LinkedHashMap() //Stores each  attribute of a vehicle as a Map(key-value pairs)
-                vehicleData["dealership_id"] = d.dealerID // HashMap.put("key", value) | assuming getDealerID() exists
-                vehicleData["dealer_name"] = d.dealerName // Add the dealer name here
-                vehicleData["is_acquisition_enabled"] = d.isAcquisitionEnabled
-                vehicleData["vehicle_type"] = v.type
-                vehicleData["vehicle_manufacturer"] = v.manufacturer
-                vehicleData["vehicle_model"] = v.model
-                vehicleData["vehicle_id"] = v.vehicleID // Assuming getId() exists
-                vehicleData["price"] = v.price
-                vehicleData["acquisition_date"] = v.acquisitionDate
-                vehicleData["is_loaned"] = v.isLoaned
+        val outerList: MutableMap<String, List<Map<String, Any>>> = LinkedHashMap()
+        val innerList: MutableList<Map<String, Any>> = ArrayList()
 
-                innerList.add(vehicleData) //add the  vehicle Obj to innerList (list)
+        for (d in dealerSet) {
+            val vehicleList = d.getVehicleList()
+            if (vehicleList.isEmpty()) {
+                // Dealer has no vehicles, include only dealer information
+                val dealerData: MutableMap<String, Any> = LinkedHashMap()
+                dealerData["dealership_id"] = d.dealerID
+                dealerData["dealer_name"] = d.dealerName
+                dealerData["is_acquisition_enabled"] = d.isAcquisitionEnabled
+                innerList.add(dealerData)
+            } else {
+                for (v in vehicleList) {
+                    val vehicleData: MutableMap<String, Any> = LinkedHashMap()
+
+                    vehicleData["dealership_id"] =
+                        d.dealerID // HashMap.put("key", value) | assuming getDealerID() exists
+                    vehicleData["dealer_name"] = d.dealerName ?: "Unknown"// Add the dealer name here
+                    vehicleData["is_acquisition_enabled"] = d.isAcquisitionEnabled ?: "Unknown"
+                    vehicleData["vehicle_type"] = v.type ?: "Unknown"
+                    vehicleData["vehicle_manufacturer"] = v.manufacturer ?: "Unknown"
+                    vehicleData["vehicle_model"] = v.model ?: "Unknown"
+                    vehicleData["vehicle_id"] = v.vehicleID ?: "Unknown"// Assuming getId() exists
+                    vehicleData["price"] = v.price ?: "Unknown"
+                    vehicleData["acquisition_date"] = v.acquisitionDate ?: "Unknown"
+                    vehicleData["is_loaned"] = v.isLoaned ?: "Unknown"
+
+
+                    innerList.add(vehicleData)
+                }
             }
         }
-        innerList.sortBy(
-            {
-             it["dealership_id"] as String
-            }
-        ) //sort by dealership_id to group similar dealerships together
+
+        innerList.sortBy { it["dealership_id"] as String }
         outerList["car_inventory"] = innerList
+
         objMap.writerWithDefaultPrettyPrinter().writeValue(
             File("Dealers_Vehicles.json"),
             outerList
-        ) //using: writeValue( File resultFile, Obj value) from Jackson's ObjectMapper class
+        )
     }
+
 }
+
 
