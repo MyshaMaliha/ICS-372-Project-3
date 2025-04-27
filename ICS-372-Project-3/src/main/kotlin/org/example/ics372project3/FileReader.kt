@@ -31,7 +31,9 @@ abstract class FileReader {
                 JSONReader(filePath).parse(dealerSet) // Calls the JSON parser if file is JSON
             } else if (filePath.endsWith(".xml")) {
                 XMLReader(filePath).parse(dealerSet) // Calls the XML parser if file is XML
-            } else {
+            } else if (filePath.endsWith(".csv")){
+                CSVReader(filePath).parse(dealerSet)
+            } else{
                 println("Unsupported file type.")
             }
         }
