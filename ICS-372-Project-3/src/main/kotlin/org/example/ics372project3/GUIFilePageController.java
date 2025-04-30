@@ -111,21 +111,6 @@ public class GUIFilePageController {
                 // If all dealers are enabled, proceed with file input
                 handleFileInputForExistingDealer();
             } else if (result.get() == manualButton) {
-//                // Ask for the dealer ID for manual input
-//                String dealerID = helper.getUserInput("Enter Dealer ID to add a vehicle:");
-//                if (dealerID == null) return;
-//
-//                Dealer selectedDealer = findDealerByID(dealerID);
-//                if (selectedDealer == null) {
-//                    helper.showAlert("Dealer ID not found.");
-//                    return;
-//                }
-//
-//                // Ask if the dealer is enabled or disabled
-//                if (!selectedDealer.isAcquisitionEnabled()) {
-//                    helper.showAlert("Dealer is disabled. Vehicle cannot be added.");
-//                    return;
-//                }
 
                 // Process manual input for the selected dealer
                 handleManualInput();
@@ -149,14 +134,6 @@ public class GUIFilePageController {
      * Handles the vehicle addition process for a new dealer.
      */
     private void handleNewDealerInput() {
-//        String dealerID = helper.getUserInput("Enter New Dealer ID:");
-//        if (dealerID == null) return;
-//
-//        // Create a new dealer and add it to the dealer set
-//        Dealer newDealer = new Dealer(dealerID);
-//        dealerSet.add(newDealer);
-
-
 
         // Now ask whether the user wants to add via file or manual input
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -293,12 +270,33 @@ public class GUIFilePageController {
 
 
         String id = helper.getUserInput("Enter Vehicle ID:");
-        String manufacturer = helper.getUserInput("Enter manufacturer:");
-        String model = helper.getUserInput("Enter Model:");
-        long acquisitionDate = Long.parseLong(helper.getUserInput("Enter Acquisition Date (as long value):"));
-        double price = Double.parseDouble(helper.getUserInput("Enter price:"));
-        String type = helper.getUserInput("Enter Vehicle Type (SUV, sedan, Pickup, Sports Car):");
-        boolean isLoaned = Boolean.parseBoolean(helper.getUserInput("Loaned (true/false):"));
+
+            String manufacturer = helper.getUserInput("Enter manufacturer:");
+            String model = helper.getUserInput("Enter Model:");
+            long acquisitionDate = Long.parseLong(helper.getUserInput("Enter Acquisition Date (as long value):"));
+            double price = Double.parseDouble(helper.getUserInput("Enter price:"));
+            String type = helper.getUserInput("Enter Vehicle Type (SUV, sedan, Pickup, Sports Car):");
+            //boolean isLoaned = Boolean.parseBoolean(helper.getUserInput("Loaned (true/false):"));
+
+            Alert loanAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            loanAlert.setTitle("Loan Status");
+            loanAlert.setHeaderText("Is the vehicle currently loaned?");
+            loanAlert.setContentText("Select Yes or No: ");
+
+            ButtonType loanedYes  = new ButtonType("Yes");
+            ButtonType loanedNo   = new ButtonType("No");
+
+            loanAlert.getButtonTypes().setAll(loanedYes, loanedNo);
+
+            //Applying Custom Style
+            DialogPane loanPane = loanAlert.getDialogPane();
+            loanPane.getStylesheets().add(getClass().getResource("/org/example/ics372project3/styles.css").toExternalForm());
+            loanPane.getStylesheets().add("dialog-pane");
+
+            Optional<ButtonType> loanedResult = loanAlert.showAndWait();
+            boolean isLoaned = (loanedResult.get() == loanedYes);
+
+
 
         Vehicle newVehicle = JSONReader.checkType(type, manufacturer, model, id, acquisitionDate, price, isLoaned);
         boolean added = selectedDealer.addVehicle(newVehicle);

@@ -23,7 +23,7 @@ class InventoryTransfer {
 
         val dealerFrom = findDealer(dealerIdFrom, dealerSet)
         val dealerTo = findDealer(dealerIdTo, dealerSet)
-        if (!dealerFrom!!.isAcquisitionEnabled || !dealerTo!!.isAcquisitionEnabled) {
+        if ( !dealerTo!!.isAcquisitionEnabled) {
             return false
         }
 

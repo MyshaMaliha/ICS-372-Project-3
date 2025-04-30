@@ -1,8 +1,8 @@
 {
   "car_inventory" : [ {
     "dealership_id" : "12513",
-    "dealer_name" : "",
-    "is_acquisition_enabled" : true,
+    "dealer_name" : "Mysha Inc",
+    "is_acquisition_enabled" : false,
     "vehicle_type" : "suv",
     "vehicle_manufacturer" : "Ford",
     "vehicle_model" : "Explorer",
@@ -12,8 +12,8 @@
     "is_loaned" : false
   }, {
     "dealership_id" : "12513",
-    "dealer_name" : "",
-    "is_acquisition_enabled" : true,
+    "dealer_name" : "Mysha Inc",
+    "is_acquisition_enabled" : false,
     "vehicle_type" : "sedan",
     "vehicle_manufacturer" : "Tesla",
     "vehicle_model" : "Model 3",
@@ -23,19 +23,19 @@
     "is_loaned" : false
   }, {
     "dealership_id" : "12513",
-    "dealer_name" : "",
-    "is_acquisition_enabled" : true,
+    "dealer_name" : "Mysha Inc",
+    "is_acquisition_enabled" : false,
     "vehicle_type" : "pickup",
     "vehicle_manufacturer" : "Chevy",
     "vehicle_model" : "Silverado",
     "vehicle_id" : "89343883",
     "price" : 70444.0,
     "acquisition_date" : 1515354694451,
-    "is_loaned" : false
+    "is_loaned" : true
   }, {
     "dealership_id" : "12513",
-    "dealer_name" : "",
-    "is_acquisition_enabled" : true,
+    "dealer_name" : "Mysha Inc",
+    "is_acquisition_enabled" : false,
     "vehicle_type" : "suv",
     "vehicle_manufacturer" : "Ford",
     "vehicle_model" : "Explorer",
@@ -45,8 +45,8 @@
     "is_loaned" : false
   }, {
     "dealership_id" : "12513",
-    "dealer_name" : "",
-    "is_acquisition_enabled" : true,
+    "dealer_name" : "Mysha Inc",
+    "is_acquisition_enabled" : false,
     "vehicle_type" : "sedan",
     "vehicle_manufacturer" : "Tesla",
     "vehicle_model" : "Model 3",
@@ -56,8 +56,8 @@
     "is_loaned" : false
   }, {
     "dealership_id" : "12513",
-    "dealer_name" : "",
-    "is_acquisition_enabled" : true,
+    "dealer_name" : "Mysha Inc",
+    "is_acquisition_enabled" : false,
     "vehicle_type" : "pickup",
     "vehicle_manufacturer" : "Chevy",
     "vehicle_model" : "Silverado",
@@ -80,17 +80,6 @@
     "dealership_id" : "485",
     "dealer_name" : "Wacky Bob’s Automall",
     "is_acquisition_enabled" : true,
-    "vehicle_type" : "sedan",
-    "vehicle_manufacturer" : "Genesis",
-    "vehicle_model" : "G70",
-    "vehicle_id" : "1515",
-    "price" : 36600.0,
-    "acquisition_date" : 0,
-    "is_loaned" : false
-  }, {
-    "dealership_id" : "485",
-    "dealer_name" : "Wacky Bob’s Automall",
-    "is_acquisition_enabled" : true,
     "vehicle_type" : "sports car",
     "vehicle_manufacturer" : "Mazda",
     "vehicle_model" : "Miata",
@@ -124,17 +113,6 @@
     "dealership_id" : "485",
     "dealer_name" : "Wacky Bob’s Automall",
     "is_acquisition_enabled" : true,
-    "vehicle_type" : "sedan",
-    "vehicle_manufacturer" : "Genesis",
-    "vehicle_model" : "G70",
-    "vehicle_id" : "1515",
-    "price" : 36600.0,
-    "acquisition_date" : 0,
-    "is_loaned" : false
-  }, {
-    "dealership_id" : "485",
-    "dealer_name" : "Wacky Bob’s Automall",
-    "is_acquisition_enabled" : true,
     "vehicle_type" : "sports car",
     "vehicle_manufacturer" : "Mazda",
     "vehicle_model" : "Miata",
@@ -145,7 +123,36 @@
   }, {
     "dealership_id" : "555",
     "dealer_name" : "",
-    "is_acquisition_enabled" : true
+    "is_acquisition_enabled" : true,
+    "vehicle_type" : "sedan",
+    "vehicle_manufacturer" : "Genesis",
+    "vehicle_model" : "G70",
+    "vehicle_id" : "1515",
+    "price" : 36600.0,
+    "acquisition_date" : 0,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "555",
+    "dealer_name" : "",
+    "is_acquisition_enabled" : true,
+    "vehicle_type" : "sedan",
+    "vehicle_manufacturer" : "toyota",
+    "vehicle_model" : "mrf",
+    "vehicle_id" : "676",
+    "price" : 56565.0,
+    "acquisition_date" : 34532,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "555",
+    "dealer_name" : "",
+    "is_acquisition_enabled" : true,
+    "vehicle_type" : "sedan",
+    "vehicle_manufacturer" : "toyota",
+    "vehicle_model" : "fdas",
+    "vehicle_id" : "89543",
+    "price" : 456654.0,
+    "acquisition_date" : 344323,
+    "is_loaned" : true
   }, {
     "dealership_id" : "77338",
     "dealer_name" : "",

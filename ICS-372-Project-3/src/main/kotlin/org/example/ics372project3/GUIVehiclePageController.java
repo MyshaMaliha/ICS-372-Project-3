@@ -48,7 +48,7 @@ public class GUIVehiclePageController {
 
         String vehicleID =  helper.getUserInput("Enter Vehicle ID:");
         if (vehicleID == null || vehicleID.trim().isEmpty()) {
-            helper.showAlert("Vehicle ID cannot be empty.");
+            //helper.showAlert("Vehicle ID cannot be empty.");
             return;
         }
         LoanVehicle lv = new LoanVehicle();
@@ -86,7 +86,7 @@ public class GUIVehiclePageController {
 
         String vehicleID =  helper.getUserInput("Enter Vehicle ID:");
         if (vehicleID == null || vehicleID.trim().isEmpty()) {
-            helper.showAlert("Vehicle ID cannot be empty.");
+            //helper.showAlert("Vehicle ID cannot be empty.");
             return;
         }
 

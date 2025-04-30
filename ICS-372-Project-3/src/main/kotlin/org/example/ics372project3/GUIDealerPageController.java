@@ -101,20 +101,21 @@ public class GUIDealerPageController {
     @FXML
     private void updateDealerName() throws IOException {
         String dealerID = helper.getUserInput("Enter Dealer ID to update name:");
-        if (dealerID == null) return;
+        if (dealerID == null || dealerID.trim().isEmpty()) return;
 
         Dealer dealer = dealerSet.stream().filter(d -> d.getDealerID().equals(dealerID)).findFirst().orElse(null);
-        if (dealer == null) {
+        if (dealer == null ) {
             helper.showAlert("Dealer ID not found.");
             return;
         }
 
         String newName = helper.getUserInput("Enter new Dealer Name:");
-        dealer.setDealerName(newName) ;
+         if( !(newName == null)) {
+             dealer.setDealerName(newName);
 
-        helper.showAlert("Dealer name updated successfully.");
-        FileWriter.INSTANCE.exportJSON(dealerSet);
-
+             helper.showAlert("Dealer name updated successfully.");
+             FileWriter.INSTANCE.exportJSON(dealerSet);
+         }
     }
 
 
@@ -152,7 +153,7 @@ public class GUIDealerPageController {
             if (success) {
                 helper.showAlert("Vehicle transferred successfully");
             } else {
-                helper.showAlert("Transfer failed. Please check your inputs and try again.");
+                helper.showAlert("Transfer failed. The receiving Dealer ID is disable");
             }
 
 
