@@ -275,7 +275,7 @@ public class GUIFilePageController {
             String model = helper.getUserInput("Enter Model:");
             long acquisitionDate = Long.parseLong(helper.getUserInput("Enter Acquisition Date (as long value):"));
             double price = Double.parseDouble(helper.getUserInput("Enter price:"));
-            String type = helper.getUserInput("Enter Vehicle Type (SUV, sedan, Pickup, Sports Car):");
+            String type = helper.getUserInput("Enter Vehicle Type (SUV, Sedan, Pickup, Sports Car):");
             //boolean isLoaned = Boolean.parseBoolean(helper.getUserInput("Loaned (true/false):"));
 
             Alert loanAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -291,7 +291,7 @@ public class GUIFilePageController {
             //Applying Custom Style
             DialogPane loanPane = loanAlert.getDialogPane();
             loanPane.getStylesheets().add(getClass().getResource("/org/example/ics372project3/styles.css").toExternalForm());
-            loanPane.getStylesheets().add("dialog-pane");
+            loanPane.getStyleClass().add("dialog-pane");
 
             Optional<ButtonType> loanedResult = loanAlert.showAndWait();
             boolean isLoaned = (loanedResult.get() == loanedYes);

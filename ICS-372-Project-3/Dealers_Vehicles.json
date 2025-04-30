@@ -39,7 +39,7 @@
     "vehicle_type" : "suv",
     "vehicle_manufacturer" : "Ford",
     "vehicle_model" : "Explorer",
-    "vehicle_id" : "48934j",
+    "vehicle_id" : "48934",
     "price" : 20123.0,
     "acquisition_date" : 1515354694451,
     "is_loaned" : false
@@ -153,6 +153,28 @@
     "price" : 456654.0,
     "acquisition_date" : 344323,
     "is_loaned" : true
+  }, {
+    "dealership_id" : "555",
+    "dealer_name" : "",
+    "is_acquisition_enabled" : true,
+    "vehicle_type" : "sedan",
+    "vehicle_manufacturer" : "toyota",
+    "vehicle_model" : "iii",
+    "vehicle_id" : "67644",
+    "price" : 56743.0,
+    "acquisition_date" : 46732,
+    "is_loaned" : false
+  }, {
+    "dealership_id" : "555",
+    "dealer_name" : "",
+    "is_acquisition_enabled" : true,
+    "vehicle_type" : "sedan",
+    "vehicle_manufacturer" : "tesla",
+    "vehicle_model" : "fgd",
+    "vehicle_id" : "6545",
+    "price" : 67584.0,
+    "acquisition_date" : 67843,
+    "is_loaned" : false
   }, {
     "dealership_id" : "77338",
     "dealer_name" : "",
