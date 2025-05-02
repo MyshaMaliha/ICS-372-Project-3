@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 // Stub for Vehicle class used in testing
-data class Vehicle(val vehicleID: String)
+
 
 class DealerTest {
 
@@ -17,8 +17,8 @@ class DealerTest {
     fun setUp() {
         dealer = Dealer("D123")
         dealer.dealerName = "Test Dealer"
-        vehicle1 = Vehicle("V001")
-        vehicle2 = Vehicle("V002")
+        vehicle1 = SUV("V001", "toyota","model2",45242, 5635.8, false)
+        vehicle2 = Sedan("V002", "Ford","model12",452322, 6635.8, false)
     }
 
     @Test
